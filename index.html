@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Mokepon Game</title>
+</head>
+
+<body>
+
+    <h1>Mokepon 🔥🌊🌱</h1>
+    <!--divide sections page-->
+    <br>
+    <section id="pet-select">
+        <!--seleccionar mascota-->
+        <h2>Choose your Pet:</h2>
+
+        <label for="hipodoge">Hipodoge</label>
+        <input type="radio" name="pet" id="hipodoge" />
+     
+        <label for="capipepo">Capipepo</label>
+        <input type="radio" name="pet" id="capipepo" />
+     
+        <label for="ratigueya">Ratigueya</label>
+        <input type="radio" name="pet" id="ratigueya" />
+     
+        <label for="langostelvis">Langostelvis</label>
+        <input type="radio" name="pet" id="langostelvis" />
+     
+        <label for="tucapalma">Tucapalma</label>
+        <input type="radio" name="pet" id="tucapalma" />
+
+        <!--other option:
+             <select name="mascota">    
+            <option id="hipodoge">Hipodoge</option>
+            <option id="capipepo">Capipepo</option>
+            <option id="ratigueya">Ratigueya</option>
+        </select>     -->
+
+        <button id="button-pet">Select</button>
+    </section>
+    <br>
+    <section id="attack-select">
+        <!--select atac-->
+        <p>Your <span id="player-pet"></span> have <span id="player-lifes">3</span> life's</p>
+        <p>Pet <span id="enemy-pet"></span> have <span id="enemy-lifes">3</span> life's</p>
+
+        <!--Buttons-->
+        <p>
+            <button id="button-fire">Fire 🔥 </button>
+            <button id="button-water">Water 🌊 </button>
+            <button id="button-earth">Earth🌱 </button>
+        </p>
+    </section>
+    <br>
+    <section id="messages">
+        <!-- <p>Your Pet attack with FIRE, and the enemy pet attack with EARTH - YOU WIN 🏆</p> -->
+    </section>
+    <br>
+    <!--RESET SECTION-->
+    <section id="reset">
+        <button id="button-reset">Reset</button>
+    </section>
+
+    <br>
+    <footer>Credits: build it to practice in the Platzi Course</footer>
+    <script src="./mokepon.js"></script>
+</body>
+
+</html>
