@@ -29,7 +29,7 @@ function selectPlayerPet() {
     sectionPetSelect.style.display = 'none' //now you can see this element
 
     let sectionAttackSelect = document.getElementById('attack-select')
-    sectionAttackSelect.style.display = 'block'
+    sectionAttackSelect.style.display = 'flex'
 
     let inputHipodoge = document.getElementById("hipodoge")
     let inputCapipepo = document.getElementById("capipepo")

@@ -10,59 +10,71 @@
 </head>
 
 <body>
-
-    <h1>Mokepon 🔥🌊🌱</h1>
-    <!--divide sections page-->
-    <br>
     <section id="pet-select">
+        <!--parent-->
+        <h1>Mokepon 🔥🌊🌱</h1>
         <!--seleccionar mascota-->
-        <h2>Choose your Pet:</h2>
+        <!--child elements-->
+        <h2 class="subtitle">Choose your Pet:</h2>
+        <div class="cards">
+            <label class="card-mokepon" for="hipodoge">
+                <p>Hipodoge</p>
+                <img src="./images/hipodoge.jpg" alt="hipodoge">
+            </label>
+            <input type="radio" name="pet" id="hipodoge" />
 
-        <label for="hipodoge">Hipodoge</label>
-        <input type="radio" name="pet" id="hipodoge" />
-     
-        <label for="capipepo">Capipepo</label>
-        <input type="radio" name="pet" id="capipepo" />
-     
-        <label for="ratigueya">Ratigueya</label>
-        <input type="radio" name="pet" id="ratigueya" />
-     
-        <label for="langostelvis">Langostelvis</label>
-        <input type="radio" name="pet" id="langostelvis" />
-     
-        <label for="tucapalma">Tucapalma</label>
-        <input type="radio" name="pet" id="tucapalma" />
+            <label class="card-mokepon" for="capipepo">
+                <p>Capipepo</p>
+                <img src="./images/capipepo.jpg" alt="capipepo">
+            </label>
+            <input type="radio" name="pet" id="capipepo" />
 
-        <!--other option:
-             <select name="mascota">    
-            <option id="hipodoge">Hipodoge</option>
-            <option id="capipepo">Capipepo</option>
-            <option id="ratigueya">Ratigueya</option>
-        </select>     -->
+            <label class="card-mokepon" for="ratigueya">
+                <p>Ratigueya</p>
+                <img src="./images/ratigueya.jpg" alt="ratigueya">
+            </label>
+            <input type="radio" name="pet" id="ratigueya" />
 
+            <label class="card-mokepon" for="langostelvis">
+                <p>Langostelvis</p>
+                <img src="./images/langostelvis.jpg" alt="langostelvis">
+            </label>
+            <input type="radio" name="pet" id="langostelvis" />
+
+            <label class="card-mokepon" for="tucapalma">
+                <p>Tucapalma</p>
+                <img src="./images/tucapalma.jpg" alt="tucapalma">
+            </label>
+            <input type="radio" name="pet" id="tucapalma" />
+        </div>
         <button id="button-pet">Select</button>
     </section>
-    <br>
+
     <section id="attack-select">
-        <!--select atac-->
+        <h1>Mokepon </h1>
+        <h2 class="subtitle">Choose your attack</h2>
+         <!--select attack-->
+        <div>
+            <button id="button-fire"  class="attacks-buttons">Fire 🔥 </button>         <!--Buttons-->
+            <button id="button-water" class="attacks-buttons">Water 🌊 </button>
+            <button id="button-earth" class="attacks-buttons">Earth🌱 </button>
+        </div>
+
+        <div>
+            <section id="messages">
+                <!-- <p>Your Pet attack with FIRE, and the enemy pet attack with EARTH - YOU WIN 🏆</p> -->
+            </section>
+            <br>
+            <!--RESET SECTION-->
+            <section id="reset">
+                <button id="button-reset">Reset</button>
+            </section>
+        </div>
+      <!--LIFE AVAILABLE-->
+        <div>
         <p>Your <span id="player-pet"></span> have <span id="player-lifes">3</span> life's</p>
         <p>Pet <span id="enemy-pet"></span> have <span id="enemy-lifes">3</span> life's</p>
-
-        <!--Buttons-->
-        <p>
-            <button id="button-fire">Fire 🔥 </button>
-            <button id="button-water">Water 🌊 </button>
-            <button id="button-earth">Earth🌱 </button>
-        </p>
-    </section>
-    <br>
-    <section id="messages">
-        <!-- <p>Your Pet attack with FIRE, and the enemy pet attack with EARTH - YOU WIN 🏆</p> -->
-    </section>
-    <br>
-    <!--RESET SECTION-->
-    <section id="reset">
-        <button id="button-reset">Reset</button>
+      </div>
     </section>
 
     <br>
