@@ -29,6 +29,7 @@ let inputCapipepo
 let inputRatigueya
 let inputLangostelvis
 let inputTucapalma
+let playerPet 
 let playerLifes = 3
 let enemyLifes = 3
 
@@ -127,35 +128,43 @@ function selectPlayerPet() {
     //with innerHtml we manipulate the DOM  
     if (inputHipodoge.checked) {
         spanPlayerPet.innerHTML = inputHipodoge.id
+        playerPet  = inputHipodoge.id
     } else if (inputCapipepo.checked) {
         spanPlayerPet.innerHTML = inputCapipepo.id
+        playerPet  = inputCapipepo.id
     } else if (inputRatigueya.checked) {
         spanPlayerPet.innerHTML = inputRatigueya.id
+        playerPet  = inputRatigueya.id
     } else if (inputLangostelvis.checked) {
         spanPlayerPet.innerHTML = inputLangostelvis.id
+        playerPet  = inputLangostelvis.id
     } else if (inputTucapalma.checked) {
         spanPlayerPet.innerHTML = inputTucapalma.id
+        playerPet  = inputTucapalma.id
     } else {
-        alert('Select some Pet')
+        alert('Select some Pet!')
     }
+    extractAttacks(playerPet)
     selectEnemyPet()
+}
+
+function  extractAttacks(playerPet) {
+    let attacks 
+    for (let i = 0; i < mokepones.length; i++) {
+        if (playerPet === mokepones[i].name) {
+            attacks = mokepones[i].attacks
+        }
+        
+    }
+    // console.log(attacks);
+    showAttacks(attacks)//create the function
 }
 /////built a function to choose some random pet for my enemy
 function selectEnemyPet() {
-    let randomPet = random(1, 5)
+    let randomPet = random(0, mokepones.length -1)
     // let spanEnemyPet = document.getElementById('enemy-pet')
-
-    if (randomPet == 1) {
-        spanEnemyPet.innerHTML = 'Hipodoge'
-    } else if (randomPet == 2) {
-        spanEnemyPet.innerHTML = 'Capipepo'
-    } else if (randomPet == 3) {
-        spanEnemyPet.innerHTML = 'Ratigueya'
-    } else if (randomPet == 4) {
-        spanEnemyPet.innerHTML = 'Langostelvis'
-    } else {
-        spanEnemyPet.innerHTML = 'Tucapalma'
-    }
+    
+   spanEnemyPet.innerHTML =  mokepones[randomPet].name //fuente de verdad echa con objetos anteriores
 }
 //powers of the pets:
 function fireAttack() {
