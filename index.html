@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +7,6 @@
     <link rel="stylesheet" href="./style.css">
     <title>Mokepon Game</title>
 </head>
-
 <body>
     <section id="pet-select">
         <!--parent-->
@@ -16,36 +14,9 @@
         <!--seleccionar mascota-->
         <!--child elements-->
         <h2 class="subtitle">Choose your Pet:</h2>
-        <div class="cards">
-            <label class="card-mokepon" for="hipodoge">
-                <p>Hipodoge</p>
-                <img src="./images/hipodoge.jpg" alt="hipodoge">
-            </label>
-            <input type="radio" name="pet" id="hipodoge" />
 
-            <label class="card-mokepon" for="capipepo">
-                <p>Capipepo</p>
-                <img src="./images/capipepo.jpg" alt="capipepo">
-            </label>
-            <input type="radio" name="pet" id="capipepo" />
-
-            <label class="card-mokepon" for="ratigueya">
-                <p>Ratigueya</p>
-                <img src="./images/ratigueya.jpg" alt="ratigueya">
-            </label>
-            <input type="radio" name="pet" id="ratigueya" />
-
-            <label class="card-mokepon" for="langostelvis">
-                <p>Langostelvis</p>
-                <img src="./images/langostelvis.jpg" alt="langostelvis">
-            </label>
-            <input type="radio" name="pet" id="langostelvis" />
-
-            <label class="card-mokepon" for="tucapalma">
-                <p>Tucapalma</p>
-                <img src="./images/tucapalma.jpg" alt="tucapalma">
-            </label>
-            <input type="radio" name="pet" id="tucapalma" />
+        <div id="cardsContainer" class="cards">
+           
         </div>
         <button id="button-pet">Select</button>
     </section>
@@ -53,33 +24,37 @@
     <section id="attack-select">
         <h1>Mokepon </h1>
         <h2 class="subtitle">Choose your attack</h2>
-         <!--select attack-->
-        <div>
-            <button id="button-fire"  class="attacks-buttons">Fire 🔥 </button>         <!--Buttons-->
+        <!--select button attack-->
+        <div class="attackselect-buttons">
+            <button id="button-fire" class="attacks-buttons">Fire 🔥 </button>
             <button id="button-water" class="attacks-buttons">Water 🌊 </button>
             <button id="button-earth" class="attacks-buttons">Earth🌱 </button>
         </div>
 
-        <div>
-            <section id="messages">
-                <!-- <p>Your Pet attack with FIRE, and the enemy pet attack with EARTH - YOU WIN 🏆</p> -->
-            </section>
-            <br>
+        <div id="messages">
+            <p id="result">Good Luck!</p>
             <!--RESET SECTION-->
             <section id="reset">
                 <button id="button-reset">Reset</button>
             </section>
         </div>
-      <!--LIFE AVAILABLE-->
-        <div>
-        <p>Your <span id="player-pet"></span> have <span id="player-lifes">3</span> life's</p>
-        <p>Pet <span id="enemy-pet"></span> have <span id="enemy-lifes">3</span> life's</p>
-      </div>
+        <!--LIFE AVAILABLE-->
+        <div class="attacks">
+            <div class="player-attacks">
+                <p id="player-lifes">3</p>
+                <p id="player-pet"></p>
+                <div id="attacks-from-player"></div>
+            </div>
+            <div class="enemy-attacks">
+                <p id="enemy-lifes">3</p>
+                <p id="enemy-pet"></p>
+                <div id="attacks-from-enemy"></div>
+            </div>
+        </div>
     </section>
-
+    <!-- clase 50 dom-->
     <br>
-    <footer>Credits: build it to practice in the Platzi Course</footer>
+    <footer>Credits: build it in the Platzi Course</footer>
     <script src="./mokepon.js"></script>
 </body>
-
 </html>

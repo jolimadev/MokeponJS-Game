@@ -1,53 +1,140 @@
-//global var:
+//vars from startGame function:
+const sectionAttackSelect = document.getElementById('attack-select')
+const resetSection = document.getElementById('reset')
+const buttonPlayerPet = document.getElementById("button-pet")
+const fireButton = document.getElementById('button-fire')
+const waterButton = document.getElementById('button-water')
+const earthButton = document.getElementById('button-earth')
+const resetButton = document.getElementById('button-reset')
+//vars from function selectPlayerPet:
+const sectionPetSelect = document.getElementById('pet-select')
+const spanPlayerPet = document.getElementById('player-pet')
+//var's from function selectEnemyPet:
+const spanEnemyPet = document.getElementById('enemy-pet')
+//vars's from Combat function:
+const spanPlayerLifes = document.getElementById('player-lifes')
+const spanEnemyLifes = document.getElementById('enemy-lifes')
+//vars' from createMessage function:
+const sectionMessages = document.getElementById('result')
+const attacksFromPlayer = document.getElementById('attacks-from-player')
+const attacksFromEnemy = document.getElementById('attacks-from-enemy')
+const cardsContainer = document.getElementById('cardsContainer')
+//Global var:
+let mokepones = []
 let playerAttack
 let enemyAttack
+let optionMokepones
+let inputHipodoge
+let inputCapipepo
+let inputRatigueya
+let inputLangostelvis
+let inputTucapalma
 let playerLifes = 3
 let enemyLifes = 3
 
+class Mokepon {
+    constructor(name, picture, life) {
+        this.name = name
+        this.picture = picture
+        this.life = life
+        this.attacks = []
+    }
+}
+//now built our mokepon objects
+let hipodoge = new Mokepon('Hipodoge', './images/hipodoge.jpg', 5)
+let capipepo = new Mokepon('Capipepo', './images/capipepo.jpg', 5)
+let ratigueya = new Mokepon('Ratigueya', './images/ratigueya.jpg', 7)
+let langostelvis = new Mokepon('Langostelvis', './images/langostelvis.jpg', 6)
+let tucapalma = new Mokepon('Tucapalma', './images/tucapalma.jpg', 5)
+
+hipodoge.attacks.push(
+    { name: '🌊', id: 'button-water' },
+    { name: '🌊', id: 'button-water' },
+    { name: '🌊', id: 'button-water' },
+    { name: '🔥', id: 'button-fire' },
+    { name: '🌱', id: 'button-earth' }
+)
+capipepo.attacks.push(
+    { name: '🌱', id: 'button-earth' },
+    { name: '🌱', id: 'button-earth' },
+    { name: '🌱', id: 'button-earth' },
+    { name: '🔥', id: 'button-fire' },
+    { name: '🌊', id: 'button-water' },
+)
+ratigueya.attacks.push(
+    { name: '🔥', id: 'button-fire' },
+    { name: '🔥', id: 'button-fire' },
+    { name: '🔥', id: 'button-fire' },
+    { name: '🌊', id: 'button-water' },
+    { name: '🌱', id: 'button-earth' }
+)
+langostelvis.attacks.push(
+    { name: '🌊', id: 'button-water' },
+    { name: '🌊', id: 'button-water' },
+    { name: '🌱', id: 'button-earth' },
+    { name: '🔥', id: 'button-fire' },
+    { name: '🌱', id: 'button-earth' },
+)
+tucapalma.attacks.push(
+    { name: '🌱', id: 'button-earth' },
+    { name: '🌊', id: 'button-water' },
+    { name: '🌊', id: 'button-water' },
+    { name: '🔥', id: 'button-fire' },
+    { name: '🔥', id: 'button-fire' },
+)
+mokepones.push(hipodoge, capipepo, ratigueya, langostelvis, tucapalma);
+
+
 function startGame() {
-    let sectionAttackSelect = document.getElementById('attack-select')
+    // let sectionAttackSelect = document.getElementById('attack-select')
     sectionAttackSelect.style.display = 'none' //to hide some elements,review the page
-    //hide reset button = section reset
-    let resetSection = document.getElementById('reset')
+    mokepones.forEach((mokepon) => {
+        optionMokepones = `
+        <input type="radio" name="pet" id=${mokepon.name} />
+        <label class="card-mokepon" for=${mokepon.name}>
+            <p>${mokepon.name}</p>
+            <img src=${mokepon.picture} alt=${mokepon.name}>
+        </label>        
+        `
+        cardsContainer.innerHTML += optionMokepones
+        inputHipodoge = document.getElementById("Hipodoge")
+        inputCapipepo = document.getElementById("Capipepo")
+        inputRatigueya = document.getElementById("Ratigueya")
+        inputLangostelvis = document.getElementById("Langostelvis")
+        inputTucapalma = document.getElementById("Tucapalma")
+    })
+    // let resetSection = document.getElementById('reset')
     resetSection.style.display = 'none'
     //declare an variable and select their id.
-    let buttonPlayerPet = document.getElementById("button-pet")
+    // let buttonPlayerPet = document.getElementById("button-pet")
     buttonPlayerPet.addEventListener("click", selectPlayerPet)
-    let fireButton = document.getElementById('button-fire')
+    // let fireButton = document.getElementById('button-fire')
     fireButton.addEventListener('click', fireAttack)
-    let waterButton = document.getElementById('button-water')
+    // let waterButton = document.getElementById('button-water')
     waterButton.addEventListener('click', waterAttack)
-    let earthButton = document.getElementById('button-earth')
+    // let earthButton = document.getElementById('button-earth')
     earthButton.addEventListener('click', earthAttack)
     //RESET BUTTON TO RELOAD GAME:
-    let resetButton = document.getElementById('button-reset')
+    // let resetButton = document.getElementById('button-reset')
     resetButton.addEventListener('click', resetGame)
 }
 //function who r gonna execute after the click(below)
 function selectPlayerPet() {
-    let sectionPetSelect = document.getElementById('pet-select')
+    // let sectionPetSelect = document.getElementById('pet-select')
     sectionPetSelect.style.display = 'none' //now you can see this element
-
-    let sectionAttackSelect = document.getElementById('attack-select')
+    // let sectionAttackSelect = document.getElementById('attack-select')
     sectionAttackSelect.style.display = 'flex'
-
-    let inputHipodoge = document.getElementById("hipodoge")
-    let inputCapipepo = document.getElementById("capipepo")
-    let inputRatigueya = document.getElementById("ratigueya")
-    let inputLangostelvis = document.getElementById("langostelvis")
-    let inputTucapalma = document.getElementById("tucapalma")
-    let spanPlayerPet = document.getElementById('player-pet')
     //with innerHtml we manipulate the DOM  
     if (inputHipodoge.checked) {
-        spanPlayerPet.innerHTML = 'Hipodoge'
+        spanPlayerPet.innerHTML = inputHipodoge.id
     } else if (inputCapipepo.checked) {
-        spanPlayerPet.innerHTML = 'Capipepo'
+        spanPlayerPet.innerHTML = inputCapipepo.id
     } else if (inputRatigueya.checked) {
-        spanPlayerPet.innerHTML = 'Ratigueya'
+        spanPlayerPet.innerHTML = inputRatigueya.id
     } else if (inputLangostelvis.checked) {
-        spanPlayerPet.innerHTML = 'Langostelvis'
+        spanPlayerPet.innerHTML = inputLangostelvis.id
     } else if (inputTucapalma.checked) {
-        spanPlayerPet.innerHTML = 'Tucapalma'
+        spanPlayerPet.innerHTML = inputTucapalma.id
     } else {
         alert('Select some Pet')
     }
@@ -56,7 +143,7 @@ function selectPlayerPet() {
 /////built a function to choose some random pet for my enemy
 function selectEnemyPet() {
     let randomPet = random(1, 5)
-    let spanEnemyPet = document.getElementById('enemy-pet')
+    // let spanEnemyPet = document.getElementById('enemy-pet')
 
     if (randomPet == 1) {
         spanEnemyPet.innerHTML = 'Hipodoge'
@@ -99,8 +186,8 @@ function randomEnemyAttack() {
 }
 //combat, //logic(cycle) to know if we lose or win:
 function combat() {
-    let spanPlayerLifes = document.getElementById('player-lifes')
-    let spanEnemyLifes = document.getElementById('enemy-lifes')
+    // let spanPlayerLifes = document.getElementById('player-lifes')
+    // let spanEnemyLifes = document.getElementById('enemy-lifes')
 
     if (enemyAttack == playerAttack) {
         createMessage(' DRAW 🥱')
@@ -133,34 +220,40 @@ function lifesCheck() {
     }
 }
 //Create message:
-function createMessage(battleResult) {
+function createMessage(result) {
     //finish to insert the paragraph like this: (a)
-    let sectionMessages = document.getElementById('messages')
+    // let sectionMessages = document.getElementById('result')
+    // let attacksFromPlayer = document.getElementById('attacks-from-player')
+    // let attacksFromEnemy = document.getElementById('attacks-from-enemy')
+    // 
+    let newAttackFromPlayer = document.createElement('p')
+    let newAttackFromEnemy = document.createElement('p')
+
+    sectionMessages.innerHTML = result
+    newAttackFromPlayer.innerHTML = playerAttack
+    newAttackFromEnemy.innerHTML = enemyAttack
     //choose what tag you want to create
-    let paragraph = document.createElement('p')
-    paragraph.innerHTML = 'Your Pet attack with ' + playerAttack + ', and the enemy pet attack with ' + enemyAttack + '-' + battleResult
-    //finish to insert the paragraph like this: (b)
-    sectionMessages.appendChild(paragraph)
+    attacksFromPlayer.appendChild(newAttackFromPlayer)
+    attacksFromEnemy.appendChild(newAttackFromEnemy)
 }
 ///////////////////////CREATE FINAL MESSAGE:
 function createFinalMessage(finalResult) {
-    let sectionMessages = document.getElementById('messages')
-    let paragraph = document.createElement('p')
-    paragraph.innerHTML = finalResult
-    sectionMessages.appendChild(paragraph)
+    // let sectionMessages = document.getElementById('result')
+
+    sectionMessages.innerHTML = finalResult
     //power button disabled, when any player life's == 0
-    let fireButton = document.getElementById('button-fire')
-    fireButton.disabled = true 
-    let waterButton = document.getElementById('button-water')
+    // let fireButton = document.getElementById('button-fire')
+    fireButton.disabled = true
+    // let waterButton = document.getElementById('button-water')
     waterButton.disabled = true
-    let earthButton = document.getElementById('button-earth')
-    earthButton.disabled = true 
+    // let earthButton = document.getElementById('button-earth')
+    earthButton.disabled = true
     //disabled reset button
-    let resetSection = document.getElementById('reset')
+    // let resetSection = document.getElementById('reset')
     resetSection.style.display = 'block'
 }
 //reset the Game
-function resetGame(){
+function resetGame() {
     location.reload() //to reload the game(pressing the reset)
 }
 //random function:
