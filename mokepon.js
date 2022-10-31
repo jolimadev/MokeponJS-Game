@@ -2,9 +2,7 @@
 const sectionAttackSelect = document.getElementById('attack-select')
 const resetSection = document.getElementById('reset')
 const buttonPlayerPet = document.getElementById("button-pet")
-const fireButton = document.getElementById('button-fire')
-const waterButton = document.getElementById('button-water')
-const earthButton = document.getElementById('button-earth')
+
 const resetButton = document.getElementById('button-reset')
 //vars from function selectPlayerPet:
 const sectionPetSelect = document.getElementById('pet-select')
@@ -19,9 +17,10 @@ const sectionMessages = document.getElementById('result')
 const attacksFromPlayer = document.getElementById('attacks-from-player')
 const attacksFromEnemy = document.getElementById('attacks-from-enemy')
 const cardsContainer = document.getElementById('cardsContainer')
+const containerAttacks = document.getElementById('containerAttacks')
 //Global var:
 let mokepones = []
-let playerAttack
+let playerAttack = []
 let enemyAttack
 let optionMokepones
 let inputHipodoge
@@ -29,7 +28,12 @@ let inputCapipepo
 let inputRatigueya
 let inputLangostelvis
 let inputTucapalma
-let playerPet 
+let playerPet
+let attacksMokepon
+let fireButton
+let waterButton
+let earthButton
+let buttons = []
 let playerLifes = 3
 let enemyLifes = 3
 
@@ -109,12 +113,7 @@ function startGame() {
     //declare an variable and select their id.
     // let buttonPlayerPet = document.getElementById("button-pet")
     buttonPlayerPet.addEventListener("click", selectPlayerPet)
-    // let fireButton = document.getElementById('button-fire')
-    fireButton.addEventListener('click', fireAttack)
-    // let waterButton = document.getElementById('button-water')
-    waterButton.addEventListener('click', waterAttack)
-    // let earthButton = document.getElementById('button-earth')
-    earthButton.addEventListener('click', earthAttack)
+
     //RESET BUTTON TO RELOAD GAME:
     // let resetButton = document.getElementById('button-reset')
     resetButton.addEventListener('click', resetGame)
@@ -128,19 +127,19 @@ function selectPlayerPet() {
     //with innerHtml we manipulate the DOM  
     if (inputHipodoge.checked) {
         spanPlayerPet.innerHTML = inputHipodoge.id
-        playerPet  = inputHipodoge.id
+        playerPet = inputHipodoge.id
     } else if (inputCapipepo.checked) {
         spanPlayerPet.innerHTML = inputCapipepo.id
-        playerPet  = inputCapipepo.id
+        playerPet = inputCapipepo.id
     } else if (inputRatigueya.checked) {
         spanPlayerPet.innerHTML = inputRatigueya.id
-        playerPet  = inputRatigueya.id
+        playerPet = inputRatigueya.id
     } else if (inputLangostelvis.checked) {
         spanPlayerPet.innerHTML = inputLangostelvis.id
-        playerPet  = inputLangostelvis.id
+        playerPet = inputLangostelvis.id
     } else if (inputTucapalma.checked) {
         spanPlayerPet.innerHTML = inputTucapalma.id
-        playerPet  = inputTucapalma.id
+        playerPet = inputTucapalma.id
     } else {
         alert('Select some Pet!')
     }
@@ -148,37 +147,57 @@ function selectPlayerPet() {
     selectEnemyPet()
 }
 
-function  extractAttacks(playerPet) {
-    let attacks 
+function extractAttacks(playerPet) {
+    let attacks
     for (let i = 0; i < mokepones.length; i++) {
         if (playerPet === mokepones[i].name) {
             attacks = mokepones[i].attacks
         }
-        
     }
-    // console.log(attacks);
     showAttacks(attacks)//create the function
+}
+function showAttacks(attacks) {
+    attacks.forEach((attack) => {
+        attacksMokepon = `
+        <button id=${attack.id} class="attacks-buttons BAttack">${attack.name}</button>
+        `
+        containerAttacks.innerHTML += attacksMokepon
+    })
+    fireButton = document.getElementById('button-fire')
+    waterButton = document.getElementById('button-water')
+    earthButton = document.getElementById('button-earth')
+    buttons = document.querySelectorAll('.BAttack')
+
+}
+
+function sequenceAttack() {
+    buttons.forEach((button) => {
+       button.addEventListener('click', (e) => {
+            if (e.target.textContent === '🔥') {
+                playerAttack.push('FIRE')
+                console.log(playerAttack);
+                button.style.background = '#112f58' 
+            } else if (e.target.textContent === '🌊') {
+                playerAttack.push('WATER')
+                console.log(playerAttack);
+                button.style.background = '#112f58' 
+            } else {
+                playerAttack.push('EARTH')
+                console.log(playerAttack);
+                button.style.background = '#112f58' 
+            }
+       });
+    });
+
 }
 /////built a function to choose some random pet for my enemy
 function selectEnemyPet() {
-    let randomPet = random(0, mokepones.length -1)
-    // let spanEnemyPet = document.getElementById('enemy-pet')
-    
-   spanEnemyPet.innerHTML =  mokepones[randomPet].name //fuente de verdad echa con objetos anteriores
+    let randomPet = random(0, mokepones.length - 1)
+
+    spanEnemyPet.innerHTML = mokepones[randomPet].name //fuente de verdad echa con objetos anteriores
+    sequenceAttack()
 }
-//powers of the pets:
-function fireAttack() {
-    playerAttack = 'FIRE'
-    randomEnemyAttack()
-}
-function waterAttack() {
-    playerAttack = 'WATER'
-    randomEnemyAttack()
-}
-function earthAttack() {
-    playerAttack = 'EARTH'
-    randomEnemyAttack()
-}
+
 //function to obtain random enemy attack
 function randomEnemyAttack() {
     let randomAttack = random(1, 3)
