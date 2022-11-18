@@ -30,10 +30,15 @@ let inputLangostelvis
 let inputTucapalma
 let playerPet
 let attacksMokepon
+let attacksMokeponEnemy 
 let fireButton
 let waterButton
 let earthButton
 let buttons = []
+let indexAttackPlayer
+let indexAttackEnemy
+let victoriesPlayer = 0
+let victoriesEnemy = 0
 let playerLifes = 3
 let enemyLifes = 3
 
@@ -172,21 +177,24 @@ function showAttacks(attacks) {
 
 function sequenceAttack() {
     buttons.forEach((button) => {
-       button.addEventListener('click', (e) => {
+        button.addEventListener('click', (e) => {
             if (e.target.textContent === '🔥') {
                 playerAttack.push('FIRE')
                 console.log(playerAttack);
-                button.style.background = '#112f58' 
+                button.style.background = '#112f58'
+                button.disabled = true
             } else if (e.target.textContent === '🌊') {
                 playerAttack.push('WATER')
                 console.log(playerAttack);
-                button.style.background = '#112f58' 
+                button.style.background = '#112f58'
+                button.disabled = true
             } else {
                 playerAttack.push('EARTH')
                 console.log(playerAttack);
-                button.style.background = '#112f58' 
+                button.style.background = '#112f58'
+                button.disabled = true
             }
-       });
+        });
     });
 
 }
@@ -195,65 +203,73 @@ function selectEnemyPet() {
     let randomPet = random(0, mokepones.length - 1)
 
     spanEnemyPet.innerHTML = mokepones[randomPet].name //fuente de verdad echa con objetos anteriores
+     attacksMokeponEnemy = mokepones[randomPet].attacks
     sequenceAttack()
 }
-
 //function to obtain random enemy attack
 function randomEnemyAttack() {
-    let randomAttack = random(1, 3)
+    let randomAttack = random(0, attacksMokeponEnemy.length -1)
 
-    if (randomAttack == 1) {
-        enemyAttack = 'FIRE'
-    } else if (randomAttack == 2) {
-        enemyAttack = 'WATER'
+    if (randomAttack === 0 || randomAttack === 1) {
+        enemyAttack.push('FIRE')
+    } else if (randomAttack === 3 || randomAttack === 4) {
+        enemyAttack.push('WATER')
     } else {
-        enemyAttack = 'EARTH'
+        enemyAttack.push('EARTH')
     }
-
+        console.log(enemyAttack);
     combat()
+}
+
+function indexBothOpponent(player, enemy) {
+    indexAttackEnemy = attacksFromEnemy[enemy]
+    indexAttackPlayer = attacksFromPlayer[player]
 }
 //combat, //logic(cycle) to know if we lose or win:
 function combat() {
-    // let spanPlayerLifes = document.getElementById('player-lifes')
-    // let spanEnemyLifes = document.getElementById('enemy-lifes')
 
-    if (enemyAttack == playerAttack) {
-        createMessage(' DRAW 🥱')
-    } else if (playerAttack == 'FIRE' && enemyAttack == 'EARTH') {
-        createMessage(' YOU WON 💪')
-        enemyLifes-- //rest a life
-        spanEnemyLifes.innerHTML = enemyLifes
-    } else if (playerAttack == 'WATER' && enemyAttack == 'FIRE') {
-        createMessage(' YOU WON 💪')
-        enemyLifes-- //rest a life
-        spanEnemyLifes.innerHTML = enemyLifes
-    } else if (playerAttack == 'EARTH' && enemyAttack == 'WATER') {
-        createMessage(' YOU WON 💪')
-        enemyLifes-- //rest a life
-        spanEnemyLifes.innerHTML = enemyLifes
-    } else {
-        createMessage(' YOU LOSE 😭')
-        playerLifes-- //rest a life
-        spanPlayerLifes.innerHTML = playerLifes
+    for (let index = 0; index < playerAttack.length; index++) {
+        if (playerAttack[index] === enemyAttack[index]) {
+            indexBothOpponent(index, index)
+            createMessage(' DRAW 🥱')
+            // NEUTRAL           
+        } else if (playerAttack[index] === 'FIRE' && enemyAttack
+        [index] === 'EARTH') {
+            indexBothOpponent(index, index)
+            createMessage(' YOU WON 💪')
+            victoriesPlayer++
+            spanPlayerLifes.innerHTML = victoriesPlayer
+        } else if (playerAttack[index] === 'WATER' && enemyAttack[index] === 'FIRE') {
+            createMessage(' YOU WON 💪')
+            victoriesPlayer++
+            spanPlayerLifes.innerHTML = victoriesPlayer
+        } else if (playerAttack[index] === 'EARTH' && enemyAttack[index] === 'WATER') {
+            indexBothOpponent(index, index)
+            createMessage(' YOU WON 💪')
+            victoriesPlayer++
+            spanPlayerLifes.innerHTML = victoriesPlayer
+        } else {
+            indexBothOpponent(index, index)
+            createMessage(' YOU LOSE 😭')
+            victoriesEnemy++
+            spanEnemyLifes.innerHTML = victoriesEnemy
+        }
     }
     //function to check available Lifes:
     lifesCheck()
 }
 
 function lifesCheck() {
-    if (enemyLifes == 0) {
-        createFinalMessage('YOUUUU WIN MOTHAFAKAA😎')
-    } else if (playerLifes == 0) {
-        createFinalMessage('YOU LOSE 💀 TRY AGAIN')
+    if (victoriesPlayer === victoriesEnemy) {
+        createFinalMessage('THIS WAS A DRAW!!')
+    } else if (victoriesPlayer > victoriesEnemy) {
+        createFinalMessage('YOU WON! congrats💪')
+    } else {
+        createFinalMessage('SORRY BUDDY, YOU LOSE😭')
     }
 }
-//Create message:
 function createMessage(result) {
     //finish to insert the paragraph like this: (a)
-    // let sectionMessages = document.getElementById('result')
-    // let attacksFromPlayer = document.getElementById('attacks-from-player')
-    // let attacksFromEnemy = document.getElementById('attacks-from-enemy')
-    // 
     let newAttackFromPlayer = document.createElement('p')
     let newAttackFromEnemy = document.createElement('p')
 
@@ -267,17 +283,8 @@ function createMessage(result) {
 ///////////////////////CREATE FINAL MESSAGE:
 function createFinalMessage(finalResult) {
     // let sectionMessages = document.getElementById('result')
-
     sectionMessages.innerHTML = finalResult
-    //power button disabled, when any player life's == 0
-    // let fireButton = document.getElementById('button-fire')
-    fireButton.disabled = true
-    // let waterButton = document.getElementById('button-water')
-    waterButton.disabled = true
-    // let earthButton = document.getElementById('button-earth')
-    earthButton.disabled = true
-    //disabled reset button
-    // let resetSection = document.getElementById('reset')
+
     resetSection.style.display = 'block'
 }
 //reset the Game
@@ -293,8 +300,3 @@ window.addEventListener('load', startGame)
 //window = window browser
 
 
-//if at least 1 condition is true = true (using OR ||)
-//but if we use &&, both have to be true
-//AND > &&
-// OR > ||
-// NOT > ! = if is not FALSE is TRUE, or TRUE is FALSE(the NOT, change the conditional)

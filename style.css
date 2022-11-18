@@ -131,7 +131,7 @@ input:checked + label {
     align-items: center;
 }
 
-@media (max-width: 450px) {
+@media (max-width: 500px) {
     .cards {
         flex-direction: column;
     }
